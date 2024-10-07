@@ -5,8 +5,15 @@ import React from 'react'
 import { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { useContext } from 'react'
+import { MyContext } from '@/Helper/Context'
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const page = () => {
+
+  const user = useContext(MyContext);
+
   const [img,setimg] = useState([])
   const [marks,setMarks] = useState(99)
   const handleFunc = () =>{
@@ -26,9 +33,15 @@ const page = () => {
       console.error("error")
     }
   }
+
+  const notify = () => {
+    toast("login successfull")
+  }
   return (
     <>
     <Header/>
+    <h1>{user}</h1>
+    <button onClick= {notify} className='bg-gray-100 px-5 py-2 rounded mt-3 '>login</button>
     <h1 className ='font-bold text-xl text-red-300'>helooooo {marks} </h1>
     <button onClick= {handleFunc} className='bg-gray-100 px-5 py-2 rounded mt-3 '>click me</button>
     <Link className='bg-gray-100 px-5 py-2 rounded mt-3 ml-3 ' href='/About'>about</Link>
@@ -40,6 +53,7 @@ const page = () => {
     return <img key={i} src= {elem.download_url}/>
   })}
 </ul>
+
     
     </>
   )
